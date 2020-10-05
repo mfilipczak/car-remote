@@ -3,6 +3,8 @@ let wyslijY = false
 let wyslijX = false
 let y = 0
 let x = 0
+let instrukcja = 0
+let ostatniaInstrukcja = -1
 radio.setGroup(24)
 basic.forever(function () {
     x = input.acceleration(Dimension.X)
@@ -13,6 +15,7 @@ basic.forever(function () {
     if (Math.abs(x) > 900 && Math.abs(x) > 500) {
         wyslijX = true
         if (x < 0) {
+            instrukcja = 1
             basic.showLeds(`
                 . . # . .
                 . # . . .
@@ -21,6 +24,7 @@ basic.forever(function () {
                 . . # . .
                 `)
         } else {
+            instrukcja = 2
             basic.showLeds(`
                 . . # . .
                 . . . # .
@@ -32,6 +36,7 @@ basic.forever(function () {
     } else if (Math.abs(y) > 900 && Math.abs(y) > 500) {
         wyslijY = true
         if (y < 0) {
+            instrukcja = 3
             basic.showLeds(`
                 . . # . .
                 . # # # .
@@ -40,6 +45,7 @@ basic.forever(function () {
                 . . # . .
                 `)
         } else {
+            instrukcja = 4
             basic.showLeds(`
                 . . # . .
                 . . # . .
@@ -49,22 +55,12 @@ basic.forever(function () {
                 `)
         }
     } else {
+        instrukcja = 0
         stop = true
         basic.clearScreen()
     }
-    if (stop) {
-        radio.sendNumber(0)
-    } else if (wyslijX) {
-        if (x < 0) {
-            radio.sendNumber(1)
-        } else {
-            radio.sendNumber(2)
-        }
-    } else {
-        if (y < 0) {
-            radio.sendNumber(2)
-        } else {
-            radio.sendNumber(3)
-        }
+    if (instrukcja != ostatniaInstrukcja) {
+        radio.sendNumber(instrukcja)
+        ostatniaInstrukcja = instrukcja
     }
 })
