@@ -1,3 +1,12 @@
+input.onButtonPressed(Button.A, function () {
+    radio.sendNumber(5)
+})
+input.onButtonPressed(Button.AB, function () {
+    radio.sendNumber(7)
+})
+input.onButtonPressed(Button.B, function () {
+    radio.sendNumber(6)
+})
 let stop = false
 let wyslijY = false
 let wyslijX = false
