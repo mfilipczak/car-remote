@@ -7,6 +7,9 @@ input.onButtonPressed(Button.AB, function () {
 input.onButtonPressed(Button.B, function () {
     radio.sendNumber(6)
 })
+input.onGesture(Gesture.Shake, function () {
+    radio.sendNumber(8)
+})
 let stop = false
 let wyslijY = false
 let wyslijX = false
@@ -21,7 +24,7 @@ basic.forever(function () {
     wyslijX = false
     wyslijY = false
     stop = false
-    if (Math.abs(x) > 900 && Math.abs(x) > 500) {
+    if (Math.abs(x) >= 500) {
         wyslijX = true
         if (x < 0) {
             instrukcja = 1
@@ -42,7 +45,7 @@ basic.forever(function () {
                 . . # . .
                 `)
         }
-    } else if (Math.abs(y) > 900 && Math.abs(y) > 500) {
+    } else if (Math.abs(y) >= 500) {
         wyslijY = true
         if (y < 0) {
             instrukcja = 3
